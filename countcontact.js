@@ -1,5 +1,6 @@
-/* UC 4: Ability to find existing contact person using their name and edit it */
-
+/* UC 6: Ability to find number of contacts in the address book
+- Use Reduce function to get the count
+*/
 const prompt=require("prompt-sync")();  // For Taking input from user
 
 class Person
@@ -94,7 +95,7 @@ let getPhoneNumber = () =>
         let phoneNumPattern =new RegExp('^[0-9]{2}\\s[0-9]{10}$');
         let phoneNumber = prompt('Enter Phone Number: ');
         if(!phoneNumPattern.test(phoneNumber))
-            throw 'Error!! PhoneNumber is not valid .. Eg. 91 9876543210';
+            throw 'Error!! PhoneNumber is not valid .. Eg. 91 9876556789';
         else
             return phoneNumber;
     }
@@ -108,7 +109,7 @@ let getEmail = () =>
 {
     try
     {
-        let emailPattern = new RegExp('^[A-Za-z]+([+. \-_]{1}\w+)?@[a-z0-9]+\.[a-z]{2,3}(\.[a-z]{2})?$');
+        let emailPattern = new RegExp('^[A-za-z]+([+. \-_]{1}\w+)?@[a-z0-9]+\.[a-z]{2,3}(\.[a-z]{2})?$');
         let emailId = prompt('Enter Email Id: ');
         if(!emailPattern.test(emailId))
             throw 'Error!! Email Id is not valid';
@@ -230,13 +231,13 @@ let EditContacts = () =>
         {
             while(true)
             {
-                var editPersonName = getName('Enter first name of person you want to edit');
+                var editPersonName = getName('First name of person you want to edit');
                 if(editPersonName!=null)
                     break;
             }
             let personDetails = addressBookPersonArr.find(x => x.firstName == editPersonName);
             if(personDetails==null)
-                throw `Error! This ${editPersonName} name is not present`;
+                throw `Error!This ${editPersonName} name is not present`;
             while(true)
             {
                 console.log("1.Edit Firstname\n2.Edit Lastname\n3.Edit Address\n4.Edit city\n5.Edit State\n6.Zipcode\n7.Phone number\n8.email id\n9.Exit");
@@ -350,13 +351,57 @@ let EditContacts = () =>
     }
     
 }
+let deleteContacts = () =>
+{
+    try
+    {
+        if(addressBookPersonArr.length>0)
+        {
+            while(true)
+            {
+                var deletePersonName = getName('First name of person you want to Delete');
+                if(deletePersonName!=null)
+                    break;
+            }
+            //find index of person name
+            const index = addressBookPersonArr.indexOf(deletePersonName);
+            //using splice remove the element
+            addressBookPersonArr.splice(index,1);
+            console.log("***************Deleted******************");
+        }
+        else
+            throw "AddressBook Is empty";
+    }
+    catch(e)
+    {
+        console.error(e);
+    }
+}
+let countContacts = () =>
+{
+    try
+    {
+        if(addressBookPersonArr.length>0)
+        {
+            //using reduce function to count the array elements
+            let count = addressBookPersonArr.reduce((c)=>c+1,0);
+            console.log(`Total number of contacts  = ${count}`);
+        }
+        else
+            throw "AddressBook Is empty";
+    }
+    catch(e)
+    {
+        console.error(e);
+    }
+}
 let AddressBookOperations = () =>
 {
     try
     {
         while(true)
         {
-            console.log("************************\n1.Add new contacts to addressbook\n2.Display\n3.Edit Contacts\n4.Exit");
+            console.log("************************\n1.Add new contacts to addressbook\n2.Display\n3.Edit Contacts\n4.Delete\n5.count Contacts\n6.Exit");
             switch(parseInt(prompt('Enter the choice? : ')))
             {
                 case 1:
@@ -369,6 +414,12 @@ let AddressBookOperations = () =>
                     EditContacts();
                     break;
                 case 4:
+                    deleteContacts();
+                    break;
+                case 5:
+                    countContacts();
+                    break;
+                case 6:
                     console.log("Exited");
                     return;
                 default:
