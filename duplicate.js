@@ -1,5 +1,6 @@
-/* UC 6: Ability to find number of contacts in the address book
-- Use Reduce function to get the count
+/* UC 7: Ability to ensure there is no Duplicate Entry of the same Person in the Address Book
+- Duplicate Check is done on Person Name before adding person to Address Book.
+- Use Array Functions of filter, map, reduce, etc to do the check
 */
 const prompt=require("prompt-sync")();  // For Taking input from user
 
@@ -130,8 +131,10 @@ let ValidateAndAdd = () =>
         while(true)
         {
             var firstName =getName('FirstName');
-            if(firstName!=null)
+            var exists = addressBookPersonArr.filter((x)=>x.firstName==firstName);
+            if(firstName!=null && exists.length==0)
                 break;
+            console.log("First name already present");
         }
         //LastName
         while(true)
@@ -383,7 +386,7 @@ let countContacts = () =>
     {
         if(addressBookPersonArr.length>0)
         {
-            //using reduce function to count the array elements
+            //using reducr count the array elements
             let count = addressBookPersonArr.reduce((c)=>c+1,0);
             console.log(`Total number of contacts  = ${count}`);
         }
