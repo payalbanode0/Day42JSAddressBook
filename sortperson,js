@@ -1,6 +1,8 @@
-/* UC 10: Ability to get number of contact persons i.e. count by City or State
-- Search Result will show count by city and by state
-- Use Array Functions of filter, map, reduce, etc to do the check
+/* UC 11: Ability to sort the entries in the address book alphabetically by Person’s name
+- Use Console to sort person details by name
+- Use Collection Library for Sorting
+- Override toString method to finally Print Person Entry in Concole
+- Use Java Streams UC 11
 */
 const prompt=require("prompt-sync")();  // For Taking input from user
 
@@ -544,8 +546,8 @@ let CountByCityOrState = () =>
                     ).reduce(
                         (i) => i+1,0 
                     );
-                    console.log(`\nThere are ${cityCount} person in ${cityName}`); 
-                    break;                               // Use backTick(`) to get value of variables.
+                    console.log(`\nThere are ${cityCount} person in ${cityName}`);
+                    break;
                 case 2:
                     //state
                     while(true)
@@ -575,13 +577,34 @@ let CountByCityOrState = () =>
         console.error(e);
     }
 }
+let SortContacts = () =>
+{
+    if(addressBookPersonArr.length>0)
+    {
+        console.log("\nSORT By\n1.Name");
+        switch(parseInt(prompt('Enter the choice? : ')))
+        {
+            case 1:
+                addressBookPersonArr.sort((a,b) => a.firstName>b.firstName? 1:-1);
+                console.log("***********SORTED************");
+                break;
+        }
+    
+    }
+    else
+    {
+        console.log("Address Book is empty");
+    }
+    
+    
+}
 let AddressBookOperations = () =>
 {
     try
     {
         while(true)
         {
-            console.log("\n1.Add new contacts to addressbook\n2.Display\n3.Edit Contacts\n4.Delete\n5.count Contacts\n6.Search Contacts\n7.View By city or state\n8.Count By city or state\n9.Exit");
+            console.log("\n1.Add new contacts to addressbook\n2.Display\n3.Edit Contacts\n4.Delete\n5.count Contacts\n6.Search Contacts\n7.View By city or state\n8.Count By city or state\n9.SortContacts\n10.Exit");
             switch(parseInt(prompt('Enter the choice? : ')))
             {
                 case 1:
@@ -609,6 +632,9 @@ let AddressBookOperations = () =>
                     CountByCityOrState();
                     break;
                 case 9:
+                    SortContacts();
+                    break;
+                case 10:
                     console.log("Exited");
                     return;
                 default:
