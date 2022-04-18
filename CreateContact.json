@@ -1,12 +1,12 @@
 
 
-/* UC 1: Ability to create a Address Book Contact with first and last names, address, city, state, 
+//* UC 1: Ability to create a Address Book Contact with first and last names, address, city, state, 
          zip, phone number and email…
          - Program is written using IDE like VSS Code
          - Every UC is in a separate Git Branch and then merged with main
          - Naming Convention, Indentation, etc Code Hygiene will be checked during Review
          - Git Check In Comments and Version History will be monitored.
-*/
+*//
 
 //npm install prompt-sync
 const prompt=require("prompt-sync")();  // For Taking input from user
@@ -56,6 +56,7 @@ try
     console.log("\n************************Contact Deatils******************");
    console.log(person.toString());
 }
+
 catch(e)
 {
     console.error(e);
