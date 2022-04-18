@@ -1,8 +1,6 @@
-/* UC 11: Ability to sort the entries in the address book alphabetically by Person’s name
-- Use Console to sort person details by name
-- Use Collection Library for Sorting
-- Override toString method to finally Print Person Entry in Concole
-- Use Java Streams UC 11
+/* UC 12: Ability to sort the entries in the address book by City, State, or Zip
+- Write functions to sort person by City, State or Zip
+- Use Array Functions of filter, map, reduce, etc to do the check
 */
 const prompt=require("prompt-sync")();  // For Taking input from user
 
@@ -581,12 +579,24 @@ let SortContacts = () =>
 {
     if(addressBookPersonArr.length>0)
     {
-        console.log("\nSORT By\n1.Name");
+        console.log("\nSORT By\n1.Name\n2.City\n3.State\n4.Zip");
         switch(parseInt(prompt('Enter the choice? : ')))
         {
             case 1:
                 addressBookPersonArr.sort((a,b) => a.firstName>b.firstName? 1:-1);
-                console.log("***********SORTED************");
+                console.log("SORTED");
+                break;
+            case 2:
+                addressBookPersonArr.sort((a,b) => a.city>b.city? 1:-1);
+                console.log("SORTED");
+                break;
+            case 3:
+                addressBookPersonArr.sort((a,b) => a.state>b.state? 1:-1);
+                console.log("SORTED");
+                break;
+            case 4:
+                addressBookPersonArr.sort((a,b) => a.zipCode>b.zipCode? 1:-1);
+                console.log("SORTED");
                 break;
         }
     
